@@ -40,9 +40,12 @@ function M.setup(opt)
 
   if opt.override_capabilities then
     local client_capabilities = ddc_nvim_lsp.make_client_capabilities()
-    lspconfig.util.add_hook_before(lspconfig.util.on_setup, function(config)
-      config.client_capabilities = client_capabilities
-    end)
+    lspconfig.util.on_setup = lspconfig.util.add_hook_before(
+      lspconfig.util.on_setup,
+      function(config)
+        config.client_capabilities = client_capabilities
+      end
+    )
   end
 
   if opt.respect_trigger then
