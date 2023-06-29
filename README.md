@@ -1,1 +1,1 @@
-# ddc-source-nvim-lsp-setup
+# ddc-nvim-lsp-setup
