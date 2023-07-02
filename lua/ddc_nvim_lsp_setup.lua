@@ -43,7 +43,7 @@ function M.setup(opt)
     lspconfig.util.on_setup = lspconfig.util.add_hook_before(
       lspconfig.util.on_setup,
       function(config)
-        config.client_capabilities = client_capabilities
+        config.capabilities = client_capabilities
       end
     )
   end
