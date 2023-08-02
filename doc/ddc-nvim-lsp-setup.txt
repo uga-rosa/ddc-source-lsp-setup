@@ -1,0 +1,40 @@
+*ddc-nvim-lsp-setup.txt*
+
+Author:  uga-rosa <uga6603@gmail.com>
+License: MIT License
+
+==============================================================================
+CONTENTS				*ddc-nvim-lsp-setup-contents*
+
+Introduction				|ddc-nvim-lsp-setup-introduction|
+Functions				|ddc-nvim-lsp-setup-functions|
+
+
+==============================================================================
+INTRODUCTION				*ddc-nvim-lsp-setup-introduction*
+
+Setup for ddc-source-nvim-lsp.
+
+
+==============================================================================
+FUNCTIONS				*ddc-nvim-lsp-setup-functions*
+
+						*ddc_nvim_lsp_setup.setup()*
+require("ddc_nvim_lsp_setup").setup({opt})
+	Call this function before calling each setup in lspconfig.
+
+	{opt} is a table, with string keys:
+
+	- override_capabilities		(boolean)
+		Automatically set client capabilities.
+
+		Default: true
+
+	- respect_trigger		(boolean)
+		Automatically set |ddc-source-option-forceCompletionPattern|.
+
+		Default: true
+
+
+==============================================================================
+vim:tw=78:ts=8:noet:ft=help:norl:
