@@ -30,19 +30,20 @@ function M.setup(opt)
   })
   opt = vim.tbl_extend("force", {}, default_config, opt or {}) --[[@as ddc_nvim_lsp_config]]
 
-  local ok1, lspconfig = pcall(require, "lspconfig")
-  local ok2, ddc_nvim_lsp = pcall(require, "ddc_nvim_lsp")
-  if not ok1 then
-    vim.notify("nvim-lspconfig is not loaded")
-  elseif not ok2 then
-    vim.notify("ddc-source-nvim-lsp is not loaded")
-  end
-
   if opt.override_capabilities then
+    local ok1, lspconfig = pcall(require, "lspconfig")
+    if not ok1 then
+      vim.notify("nvim-lspconfig is not loaded")
+    end
+
     lspconfig.util.on_setup = lspconfig.util.add_hook_before(
       lspconfig.util.on_setup,
       function(config)
-        local capabilities = ddc_nvim_lsp.make_client_capabilities(config.capabilities)
+        local ok2, ddc_nvim_lsp = pcall(require, "ddc_nvim_lsp")
+        if not ok2 then
+          vim.notify("ddc-source-nvim-lsp is not loaded")
+        end
+        local capabilities = ddc_nvim_lsp.make_client_capabilities()
         config.capabilities = capabilities
       end
     )
