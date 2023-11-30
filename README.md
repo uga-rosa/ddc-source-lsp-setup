@@ -1,11 +1,11 @@
-# ddc-nvim-lsp-setup
+# ddc-source-lsp-setup
 
-Setup for [ddc-source-nvim-lsp](https://github.com/Shougo/ddc-source-nvim-lsp).
+Setup for [ddc-source-lsp](https://github.com/Shougo/ddc-source-lsp).
 
 The `capabilities` and `forceCompletionPattern` are automatically set to the appropriate ones.
 
 ```lua
-require("ddc_nvim_lsp_setup").setup()
+require("ddc_source_lsp_setup").setup()
 
 require("lspconfig").denols.setup()
 ```
