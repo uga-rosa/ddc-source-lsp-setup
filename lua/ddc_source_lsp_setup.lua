@@ -13,7 +13,7 @@ local function deduplicate(list)
   return ret
 end
 
----@class ddc_nvim_lsp_config
+---@class ddc_source_lsp_config
 ---@field override_capabilities boolean Defalut: true
 ---@field respect_trigger boolean Defalut: true
 local default_config = {
@@ -23,12 +23,12 @@ local default_config = {
 
 local M = {}
 
----@param opt ddc_nvim_lsp_config
+---@param opt ddc_source_lsp_config
 function M.setup(opt)
   vim.validate({
     opt = { opt, "t", true },
   })
-  opt = vim.tbl_extend("force", {}, default_config, opt or {}) --[[@as ddc_nvim_lsp_config]]
+  opt = vim.tbl_extend("force", {}, default_config, opt or {}) --[[@as ddc_source_lsp_config]]
 
   if opt.override_capabilities then
     local ok1, lspconfig = pcall(require, "lspconfig")
@@ -39,9 +39,9 @@ function M.setup(opt)
     lspconfig.util.on_setup = lspconfig.util.add_hook_before(
       lspconfig.util.on_setup,
       function(config)
-        local ok2, ddc_nvim_lsp = pcall(require, "ddc_nvim_lsp")
+        local ok2, ddc_nvim_lsp = pcall(require, "ddc_source_lsp")
         if not ok2 then
-          vim.notify("ddc-source-nvim-lsp is not loaded")
+          vim.notify("ddc-source-lsp is not loaded")
         end
         local capabilities = ddc_nvim_lsp.make_client_capabilities()
         config.capabilities = capabilities
@@ -55,7 +55,7 @@ function M.setup(opt)
       callback = function()
         ---@type string[]
         local chars = {}
-        for _, client in ipairs(vim.lsp.get_active_clients({ bufnr = 0 })) do
+        for _, client in ipairs(vim.lsp.get_clients({ bufnr = 0 })) do
           local provider = client.server_capabilities.completionProvider
           if provider and provider.triggerCharacters then
             chars = vim.list_extend(chars, provider.triggerCharacters)
