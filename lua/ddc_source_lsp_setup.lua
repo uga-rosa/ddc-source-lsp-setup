@@ -55,7 +55,9 @@ function M.setup(opt)
       callback = function()
         ---@type string[]
         local chars = {}
-        for _, client in ipairs(vim.lsp.get_clients({ bufnr = 0 })) do
+        -- Support release version
+        local get_clients = vim.lsp.get_clients or vim.lsp.get_active_clients
+        for _, client in ipairs(get_clients({ bufnr = 0 })) do
           local provider = client.server_capabilities.completionProvider
           if provider and provider.triggerCharacters then
             chars = vim.list_extend(chars, provider.triggerCharacters)
