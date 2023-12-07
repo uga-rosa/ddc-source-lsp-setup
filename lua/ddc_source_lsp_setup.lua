@@ -72,7 +72,7 @@ function M.setup(opt)
         table.insert(chars, 1, "[a-zA-Z]")
         local regex = "(?:" .. table.concat(chars, "|\\") .. ")"
         vim.fn["ddc#custom#patch_buffer"]("sourceOptions", {
-          ["nvim-lsp"] = {
+          ["lsp"] = {
             forceCompletionPattern = regex,
           },
         })
