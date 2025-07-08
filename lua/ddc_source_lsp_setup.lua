@@ -25,9 +25,8 @@ local M = {}
 
 ---@param opt ddc_source_lsp_config
 function M.setup(opt)
-  vim.validate({
-    opt = { opt, "t", true },
-  })
+  opt = opt or {}
+  vim.validate("opt", opt, "table", true)
   opt = vim.tbl_extend("force", {}, default_config, opt or {}) --[[@as ddc_source_lsp_config]]
 
   if opt.override_capabilities then
